@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import javax.swing.*;
+import java.awt.event.*;
 
 /**
  *
@@ -15,7 +17,34 @@ public class KonversiSuhuForm extends javax.swing.JFrame {
      */
     public KonversiSuhuForm() {
         initComponents();
+        
     }
+private void konversiSuhu() {
+    try {
+        double suhu = Double.parseDouble(inputSuhu.getText());
+        String konversiKe = (String) comboKonversi.getSelectedItem();
+        double hasil = 0;
+
+        // Pilih rumus berdasarkan pilihan skala
+        switch (konversiKe) {
+            case "Fahrenheit":
+                hasil = (suhu * 9/5) + 32;
+                break;
+            case "Reamur":
+                hasil = suhu * 4/5;
+                break;
+            case "Kelvin":
+                hasil = suhu + 273.15;
+                break;
+        }
+
+        // Tampilkan hasil
+        lblHasil.setText("Hasil: " + hasil + " " + konversiKe);
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Masukkan nilai suhu yang valid!", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,17 +60,41 @@ public class KonversiSuhuForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         comboKonversi = new javax.swing.JComboBox<>();
         btnKonversi = new javax.swing.JButton();
+        lblHasil = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aplikasi Konversi Suhu");
 
         jLabel1.setText("Masukkan Suhu:");
 
+        inputSuhu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputSuhuActionPerformed(evt);
+            }
+        });
+        inputSuhu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inputSuhuKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Konversi ke:");
 
         comboKonversi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboKonversi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboKonversiActionPerformed(evt);
+            }
+        });
 
         btnKonversi.setText("Konversi");
+        btnKonversi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKonversiActionPerformed(evt);
+            }
+        });
+
+        lblHasil.setText("Hasil Konversi:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -49,15 +102,18 @@ public class KonversiSuhuForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnKonversi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inputSuhu)
-                    .addComponent(comboKonversi, 0, 80, Short.MAX_VALUE))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnKonversi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(inputSuhu)
+                            .addComponent(comboKonversi, 0, 80, Short.MAX_VALUE)))
+                    .addComponent(lblHasil))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -72,11 +128,56 @@ public class KonversiSuhuForm extends javax.swing.JFrame {
                     .addComponent(comboKonversi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnKonversi)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblHasil)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnKonversiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKonversiActionPerformed
+btnKonversi.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        konversiSuhu();
+    }
+});
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnKonversiActionPerformed
+
+    private void inputSuhuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputSuhuKeyTyped
+inputSuhu.addKeyListener(new KeyAdapter() {
+    @Override
+    public void keyTyped(KeyEvent e) {
+        char c = e.getKeyChar();
+        if (!Character.isDigit(c) && c != '.') {
+            e.consume(); // Batasi input hanya angka dan titik desimal
+        }
+    }
+});
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputSuhuKeyTyped
+
+    private void comboKonversiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboKonversiActionPerformed
+comboKonversi = new JComboBox<>(new String[]{ "Fahrenheit", "Reamur", "Kelvin" });
+comboKonversi.setBounds(180, 70, 150, 20);
+add(comboKonversi);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboKonversiActionPerformed
+
+    private void inputSuhuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputSuhuActionPerformed
+inputSuhu.addKeyListener(new KeyAdapter() {
+    @Override
+    public void keyTyped(KeyEvent e) {
+        char c = e.getKeyChar();
+        if (!Character.isDigit(c) && c != '.') { 
+            e.consume(); // Menolak input selain angka atau titik.
+        }
+    }
+});
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputSuhuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -119,5 +220,6 @@ public class KonversiSuhuForm extends javax.swing.JFrame {
     private javax.swing.JTextField inputSuhu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblHasil;
     // End of variables declaration//GEN-END:variables
 }
