@@ -65,7 +65,7 @@ private void konversiSuhu() {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aplikasi Konversi Suhu");
 
-        jLabel1.setText("Masukkan Suhu:");
+        jLabel1.setText("Masukkan Suhu Dalam Celcius:");
 
         inputSuhu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +80,7 @@ private void konversiSuhu() {
 
         jLabel2.setText("Konversi ke:");
 
-        comboKonversi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboKonversi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fahrenheit", "Reamur", "Kelvin" }));
         comboKonversi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboKonversiActionPerformed(evt);
@@ -111,9 +111,9 @@ private void konversiSuhu() {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(inputSuhu)
-                            .addComponent(comboKonversi, 0, 80, Short.MAX_VALUE)))
+                            .addComponent(comboKonversi, 0, 146, Short.MAX_VALUE)))
                     .addComponent(lblHasil))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
